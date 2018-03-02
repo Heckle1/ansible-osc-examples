@@ -2,7 +2,7 @@
 Some usefull Ansible receip for Outscale
 
 # Outscale Endpoints
-If you want to work with Outscale please respect those 3 following rules
+If you want to work with Outscale please follow those rules:
 
 
 1. To be able to use Outscale you should us both "region" and "ec2_url" in your Ansible role
