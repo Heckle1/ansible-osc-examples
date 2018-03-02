@@ -19,7 +19,7 @@ outscale_endpoints = {
     'ec2': {
         'eu-west-2': 'fcu.eu-west-2.outscale.com',
         'us-east-2': 'fcu.us-east-2.outscale.com',
-        'us-west-1': 'fcu.us-east-2.outscale.com'
+        'us-west-1': 'fcu.us-west-1.outscale.com'
     }
 }
 

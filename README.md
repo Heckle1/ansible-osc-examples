@@ -19,10 +19,10 @@ This program will update the endpoints.json file used within your current enviro
 - us-west-1 / fcu.us-west-1.outscale.com
 
 ``` python
-$>python update_endpoints.py
+(work_env)$>python update_endpoints.py
 INFO fcu.us-east-2.outscale.com updated !
 INFO fcu.us-east-2.outscale.com updated !
-INFO fcu.eu-west-2.outscale.com updated !
+INFO fcu.us-west-1.outscale.com updated !
 INFO /<YOUR_ENV>/lib64/python3.5/site-packages/boto/endpoints.json update with succes
 INFO Done.
 ```
