@@ -14,8 +14,8 @@ If you want to work with Outscale please respect those 3 following rules
 
 
 2. Use Ansible for Outscale
-   https://github.com/Heckle1/ansible
-   The different with official Ansible is this https://github.com/Heckle1/ansible/commit/cc010035e55a58211c5b8f50915ca9e4644505e8
+   * https://github.com/Heckle1/ansible
+   * Difference with official Ansible is this https://github.com/Heckle1/ansible/commit/cc010035e55a58211c5b8f50915ca9e4644505e8
 
 
 3. Use update_endpoints.py to inject Outscale endpoint for FCU/EC2 service
