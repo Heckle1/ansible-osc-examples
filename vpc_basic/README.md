@@ -13,6 +13,9 @@
 - 1 "Private" Security Group
   - 1 rule to allow port 22 from "Public Security Group"
 
+![Image of Infrastructure]
+(http://github.osu.eu-west-2.outscale.com/ansible-vpc-basic.png)
+
 # How to run
 
 1. First edit the ./vars.yml file
