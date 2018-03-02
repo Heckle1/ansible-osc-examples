@@ -2,7 +2,7 @@
 Some usefull Ansible receip for Outscale
 
 # Outscale Endpoints
-If you want to work with Outscale please respect those 2 following rules
+If you want to work with Outscale please respect those 3 following rules
 
 
 1. To be able to use Outscale you should us both "region" and "ec2_url" in your Ansible role
@@ -12,7 +12,13 @@ If you want to work with Outscale please respect those 2 following rules
     ec2_url:          "{{ fcu_url }}"
 ```
 
-2. Use update_endpoints.py to inject Outscale endpoint for FCU/EC2 service
+
+2. Use Ansible for Outscale
+https://github.com/Heckle1/ansible
+The different with official Ansible is this https://github.com/Heckle1/ansible/commit/cc010035e55a58211c5b8f50915ca9e4644505e8
+
+
+3. Use update_endpoints.py to inject Outscale endpoint for FCU/EC2 service
 This program will update the endpoints.json file used within your current environment (because of course you are using virtual environment) with Outscale endpoints
 - eu-west-2 / fcu.eu-west-2.outscale.com
 - us-east-2 / fcu.us-east-2.outscale.com
