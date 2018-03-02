@@ -1,4 +1,4 @@
-* What is does
+# What is does
 - 1 vpc
 - 1 Internet Gateway
 - 1 public subnet
@@ -13,8 +13,12 @@
 - 1 "Private" Security Group
   - 1 rule to allow port 22 from "Public Security Group"
 
-* How to run
+# How to run
 
+1.
+First edit the ./vars.yml file
+
+2. Run
 ```bash
 ansible-playbook playbook.yml -i inventory -e @vars.yml
 ```
