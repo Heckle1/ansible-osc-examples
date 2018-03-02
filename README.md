@@ -18,5 +18,11 @@ This program will update the endpoints.json file used within your current enviro
 - us-east-2 / fcu.us-east-2.outscale.com
 - us-west-1 / fcu.us-west-1.outscale.com
 
+# Hint
+If you have multiple Ansible installed, you may have to add -extra-vers to your ansible-playbook command
+``` bash
+ansible-playbook --extra-vars "ansible_python_interpreter=/<PATH_TO_ENV>/bin/python"
+```
+
 # Note
 Python 3.5+
