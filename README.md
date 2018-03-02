@@ -14,24 +14,24 @@ If you want to work with Outscale please respect those 3 following rules
 
 
 2. Use Ansible for Outscale
-https://github.com/Heckle1/ansible
-The different with official Ansible is this https://github.com/Heckle1/ansible/commit/cc010035e55a58211c5b8f50915ca9e4644505e8
+   https://github.com/Heckle1/ansible
+   The different with official Ansible is this https://github.com/Heckle1/ansible/commit/cc010035e55a58211c5b8f50915ca9e4644505e8
 
 
 3. Use update_endpoints.py to inject Outscale endpoint for FCU/EC2 service
-This program will update the endpoints.json file used within your current environment (because of course you are using virtual environment) with Outscale endpoints
-- eu-west-2 / fcu.eu-west-2.outscale.com
-- us-east-2 / fcu.us-east-2.outscale.com
-- us-west-1 / fcu.us-west-1.outscale.com
+   This program will update the endpoints.json file used within your current environment (because of course you are using virtual environment) with Outscale endpoints
+   - eu-west-2 / fcu.eu-west-2.outscale.com
+   - us-east-2 / fcu.us-east-2.outscale.com
+   - us-west-1 / fcu.us-west-1.outscale.com
 
-``` python
-(work_env)$>python update_endpoints.py
-INFO fcu.us-east-2.outscale.com updated !
-INFO fcu.us-east-2.outscale.com updated !
-INFO fcu.us-west-1.outscale.com updated !
-INFO /<YOUR_ENV>/lib64/python3.5/site-packages/boto/endpoints.json update with succes
-INFO Done.
-```
+	``` python
+	(work_env)$>python update_endpoints.py
+	INFO fcu.us-east-2.outscale.com updated !
+	INFO fcu.us-east-2.outscale.com updated !
+	INFO fcu.us-west-1.outscale.com updated !
+	INFO /<YOUR_ENV>/lib64/python3.5/site-packages/boto/endpoints.json update with succes
+	INFO Done.
+	```
 
 
 # Hint
