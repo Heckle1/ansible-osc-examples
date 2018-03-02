@@ -1,0 +1,156 @@
+---
+
+- name:               Create VPC
+  ec2_vpc_net:
+    name:             "{{ vpc_name }}"
+    cidr_block:       "{{ vpc_cidr_block }}"
+    region:           "{{ osc_region }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    state:            "present"
+  register: my_vpc
+
+- name:               Set VPC ID in variable
+  set_fact:
+    vpc_id:           "{{ my_vpc.vpc.id }}"
+
+#
+- name:               Create Public Subnet
+  ec2_vpc_subnet:
+    state:            "present"
+    vpc_id:           "{{ vpc_id }}"
+    cidr:             "{{ public_subnet_1_cidr }}"
+    az:               "{{ osc_region }}a"
+    region:           "{{ osc_region }}"
+    ec2_url:          "{{ fcu_url }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    map_public:       no
+    resource_tags:
+      Name:           "Public Subnet"
+  register: my_public_subnet
+
+- name:               Set Public Subnet ID in variable
+  set_fact:
+    public_subnet_id: "{{ my_public_subnet.subnet.id }}"
+
+#
+- name:               Create Private Subnet
+  ec2_vpc_subnet:
+    state:            "present"
+    vpc_id:           "{{ vpc_id }}"
+    cidr:             "{{ public_private_1_cidr }}"
+    az:               "{{ osc_region }}a"
+    region:           "{{ osc_region }}"
+    ec2_url:          "{{ fcu_url }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    map_public:       no
+    resource_tags:
+      Name:           "Private Subnet"
+  register: my_private_subnet
+
+- name:               Set Private Subnet ID in variable
+  set_fact:
+    private_subnet_id: "{{ my_private_subnet.subnet.id }}"
+
+#
+
+- name:               Create Internet Gateway for VPC
+  ec2_vpc_igw:
+    vpc_id:           "{{ vpc_id }}"
+    ec2_url:          "{{ fcu_url }}"
+    region:           "{{ osc_region }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    state:            "present"
+  register: my_vpc_igw
+
+
+- name:               Set Internet Gateway ID in variable
+  set_fact:
+    igw_id:           "{{ my_vpc_igw.gateway_id }}"
+
+
+#
+- name:               Set up public subnet route table
+  ec2_vpc_route_table:
+    vpc_id:           "{{ vpc_id }}"
+    ec2_url:          "{{ fcu_url }}"
+    region:           "{{ osc_region }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    tags:
+      Name:           "Public"
+    subnets:
+      - "{{ public_subnet_id }}"
+    routes:
+      - dest:         "0.0.0.0/0"
+        gateway_id:   "{{ igw_id }}"
+
+#
+- name:                 Nat Gateway
+  ec2_vpc_nat_gateway:
+    state:              "present"
+    subnet_id:          "{{ public_subnet_id  }}"
+    ec2_url:            "{{ fcu_url }}"
+    region:             "{{ osc_region }}"
+  register: my_vpc_natgw
+
+- name:               Set Nat Gateway ID in variable
+  set_fact:
+    natgw_id:           "{{ my_vpc_natgw.nat_gateway_id }}"
+
+#
+- name:               Set up private subnet route table
+  ec2_vpc_route_table:
+    vpc_id:           "{{ vpc_id }}"
+    ec2_url:          "{{ fcu_url }}"
+    region:           "{{ osc_region }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    tags:
+      Name:           "Private"
+    subnets:
+      - "{{ private_subnet_id }}"
+    routes:
+      - dest:         "0.0.0.0/0"
+        gateway_id:   "{{ natgw_id }}"
+
+
+- name:               Public Security Group
+  ec2_group:
+    name:             "Public SG"
+    description:      "My Public Security Group"
+    vpc_id:           "{{ vpc_id }}"
+    ec2_url:          "{{ fcu_url }}"
+    region:           "{{ osc_region }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    rules:
+      - proto:        "tcp"
+        from_port:    "22"
+        to_port:      "22"
+        cidr_ip:      "{{ my_ip }}/32"
+
+  register: my_public_sg
+
+- name:               Set Public SG ID in variable
+  set_fact:
+    public_sg_id:       "{{ my_public_sg.group_id }}"
+
+
+- name:               Private Security Group
+  ec2_group:
+    name:             "Private SG"
+    description:      "My Private Security Group"
+    vpc_id:           "{{ vpc_id }}"
+    ec2_url:          "{{ fcu_url }}"
+    region:           "{{ osc_region }}"
+    aws_access_key:   "{{ osc_access_key }}"
+    aws_secret_key:   "{{ osc_secret_key }}"
+    rules:
+      - proto:        "tcp"
+        from_port:    "22"
+        to_port:      "22"
+        group_id:      "{{ public_sg_id }}"

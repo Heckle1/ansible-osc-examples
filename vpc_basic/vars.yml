@@ -1,0 +1,19 @@
+---
+
+# Credentials
+osc_access_key:         "<YOUR_AK>"
+osc_secret_key:         "<YOUR_SK>"
+osc_region:             "eu-west-2"
+fcu_url:                "https://fcu.eu-west-2.outscale.com"
+
+# VPC Information
+vpc_name:               "VPC-Ansible"
+vpc_cidr_block:         "10.0.0.0/16"
+
+# Subnets
+public_subnet_1_cidr:   "10.0.0.0/24"
+public_private_1_cidr:  "10.0.1.0/24"
+
+# Setup public security group with this IP for SSH connexion
+my_ip:                  "46.231.147.42"
+
