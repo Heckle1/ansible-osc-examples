@@ -15,8 +15,7 @@
 
 # How to run
 
-1.
-First edit the ./vars.yml file
+1. First edit the ./vars.yml file
 
 2. Run
 ```bash
